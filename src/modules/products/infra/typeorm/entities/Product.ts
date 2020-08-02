@@ -8,20 +8,29 @@ import {
 } from 'typeorm';
 
 import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts';
+import { type } from 'os';
 
+@Entity('products')
 class Product {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
   name: string;
 
+  @Column()
   price: number;
 
+  @Column()
   quantity: number;
 
+  @OneToMany(type => OrdersProducts, product => Product)
   order_products: OrdersProducts[];
 
+  @CreateDateColumn()
   created_at: Date;
 
+  @UpdateDateColumn()
   updated_at: Date;
 }
 
